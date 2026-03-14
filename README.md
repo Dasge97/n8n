@@ -9,6 +9,8 @@ La pila incluye:
 - etiquetas de Traefik para `https://n8n.dedaniel.com`
 - volúmenes locales para persistir los datos de la aplicación y de la base de datos
 
+PostgreSQL guarda sus datos reales dentro de `./postgres/data/pgdata` para evitar problemas al versionar la carpeta `data`.
+
 ## Estructura de carpetas
 
 ```text
@@ -93,6 +95,7 @@ Notas:
 
 - Sin una instancia de Traefik conectada a la red `web`, los contenedores arrancarán igualmente, pero el servicio no será accesible desde `https://n8n.dedaniel.com`.
 - Para pruebas locales usando el hostname de producción, asegúrate de que tu DNS o tu archivo `hosts` resuelvan `n8n.dedaniel.com` hacia la máquina donde está corriendo Traefik.
+- PostgreSQL inicializa la base de datos en `./postgres/data/pgdata`, mientras que `./postgres/data/.gitkeep` solo existe para conservar la carpeta en Git.
 
 ## Instrucciones de despliegue en el servidor
 
@@ -140,6 +143,8 @@ Flujo de despliegue sugerido:
    docker compose up -d
    ```
 
+Si un arranque anterior falló antes de este ajuste y ves errores de inicialización de PostgreSQL, elimina únicamente el directorio parcial `postgres/data/pgdata` y vuelve a levantar la pila.
+
 7. Verifica el acceso:
 
    - Abre `https://n8n.dedaniel.com`
@@ -177,5 +182,5 @@ Cuando actualices la infraestructura o las imágenes de los contenedores:
 
 Los datos persistentes permanecen en:
 
-- `./postgres/data`
+- `./postgres/data` (PostgreSQL usa `./postgres/data/pgdata`)
 - `./n8n/data`
