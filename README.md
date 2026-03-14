@@ -56,6 +56,7 @@ Los valores por defecto ya coinciden con el despliegue previsto:
 - Nombre de la base de datos: `n8n`
 - Usuario de la base de datos: `n8n`
 - Usuario del editor de n8n: `admin`
+- Cert resolver de Traefik: `letsencrypt` (ajústalo si tu servidor usa otro nombre, por ejemplo `myresolver`)
 
 ## Instrucciones para desarrollo local
 
@@ -124,6 +125,8 @@ Flujo de despliegue sugerido:
    ```bash
    cp .env.example .env
    ```
+
+   Si tu instancia de Traefik no usa un resolver llamado `letsencrypt`, cambia `TRAEFIK_CERT_RESOLVER` al nombre real configurado en ese servidor.
 
 4. Confirma que la red compartida de Traefik existe:
 
