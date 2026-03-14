@@ -8,6 +8,7 @@ La pila incluye:
 - `n8n-postgres` para la base de datos PostgreSQL dedicada
 - etiquetas de Traefik para `https://n8n.dedaniel.com`
 - volúmenes locales para persistir los datos de la aplicación y de la base de datos
+- configuración preparada para webhooks detrás de Traefik
 
 PostgreSQL guarda sus datos reales dentro de `./postgres/data/pgdata` para evitar problemas al versionar la carpeta `data`.
 
@@ -39,7 +40,6 @@ n8n-infra/
 
    - `POSTGRES_PASSWORD`
    - `DB_POSTGRESDB_PASSWORD`
-   - `N8N_BASIC_AUTH_PASSWORD`
 
 3. Mantén sincronizadas las contraseñas de PostgreSQL:
 
@@ -55,7 +55,6 @@ Los valores por defecto ya coinciden con el despliegue previsto:
 - Zona horaria: `Europe/Madrid`
 - Nombre de la base de datos: `n8n`
 - Usuario de la base de datos: `n8n`
-- Usuario del editor de n8n: `admin`
 - Cert resolver de Traefik: `letsencrypt` (ajústalo si tu servidor usa otro nombre, por ejemplo `myresolver`)
 
 ## Instrucciones para desarrollo local
@@ -97,6 +96,7 @@ Notas:
 - Sin una instancia de Traefik conectada a la red `web`, los contenedores arrancarán igualmente, pero el servicio no será accesible desde `https://n8n.dedaniel.com`.
 - Para pruebas locales usando el hostname de producción, asegúrate de que tu DNS o tu archivo `hosts` resuelvan `n8n.dedaniel.com` hacia la máquina donde está corriendo Traefik.
 - PostgreSQL inicializa la base de datos en `./postgres/data/pgdata`, mientras que `./postgres/data/.gitkeep` solo existe para conservar la carpeta en Git.
+- Los webhooks externos usan `WEBHOOK_URL`, que debe apuntar a la URL pública HTTPS de n8n cuando está detrás de Traefik.
 
 ## Instrucciones de despliegue en el servidor
 
@@ -151,7 +151,7 @@ Si un arranque anterior falló antes de este ajuste y ves errores de inicializac
 7. Verifica el acceso:
 
    - Abre `https://n8n.dedaniel.com`
-   - Inicia sesión con los valores de `N8N_BASIC_AUTH_USER` y `N8N_BASIC_AUTH_PASSWORD`
+   - Inicia sesión con la cuenta interna de n8n
 
 ## Instrucciones de actualización
 

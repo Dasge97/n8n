@@ -33,9 +33,6 @@ services:
     environment:
       GENERIC_TIMEZONE: ${GENERIC_TIMEZONE:-Europe/Madrid}
       TZ: ${GENERIC_TIMEZONE:-Europe/Madrid}
-      N8N_BASIC_AUTH_ACTIVE: ${N8N_BASIC_AUTH_ACTIVE:-true}
-      N8N_BASIC_AUTH_USER: ${N8N_BASIC_AUTH_USER:-admin}
-      N8N_BASIC_AUTH_PASSWORD: ${N8N_BASIC_AUTH_PASSWORD:?define N8N_BASIC_AUTH_PASSWORD en .env}
       DB_TYPE: ${DB_TYPE:-postgresdb}
       DB_POSTGRESDB_HOST: ${DB_POSTGRESDB_HOST:-n8n-postgres}
       DB_POSTGRESDB_PORT: ${DB_POSTGRESDB_PORT:-5432}
@@ -45,6 +42,9 @@ services:
       N8N_HOST: ${N8N_HOST:-n8n.dedaniel.com}
       N8N_PORT: ${N8N_PORT:-5678}
       N8N_PROTOCOL: ${N8N_PROTOCOL:-https}
+      N8N_EDITOR_BASE_URL: ${N8N_EDITOR_BASE_URL:-https://n8n.dedaniel.com/}
+      WEBHOOK_URL: ${WEBHOOK_URL:-https://n8n.dedaniel.com/}
+      N8N_PROXY_HOPS: ${N8N_PROXY_HOPS:-1}
     volumes:
       - ./n8n/data:/home/node/.n8n
     networks:
