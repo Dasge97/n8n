@@ -1,0 +1,7 @@
+.env
+
+postgres/data/*
+!postgres/data/.gitkeep
+
+n8n/data/*
+!n8n/data/.gitkeep
